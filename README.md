@@ -39,8 +39,15 @@ Good luck.  Come back here when you've:
 
 1. Created a novel Application.
 2. Copied its Client ID.
-3. Made it into a Bot
-4. Invited your Bot into your server.
+3. Made it into a Bot.
+4. Invited your Bot into your Discord server.
+
+Here's a link you can doctor up with the Client ID to get the #4 step above, invite your bot into your Discord server, accomplished:
+
+* https://discordapp.com/oauth2/authorize?client_id=<Bot_Client_ID>&scope=bot&permissions=0
+
+Just replace "<Bot_client_Id>" above with the Client ID you copied from the Discord Application setup page. Then paste this into a browser and select the Discord server you want this bot to be invited into.
+
 
 ### Step 1: Make a Python virtualenv.
 
