@@ -1,7 +1,6 @@
 import os
 
-# from discord import FFmpegPCMAudio
-from discord import FFmpegOpusAudio
+from discord import FFmpegOpusAudio, FFmpegPCMAudio
 from discord.ext.commands import Bot
 from discord.ext.commands.errors import CommandInvokeError
 
@@ -19,6 +18,7 @@ from discord.ext.commands.errors import CommandInvokeError
 TOKEN = os.getenv("DISCORD_RADIOBOT_TOKEN")         # collected from Discord Bot setup process.
 PREFIX = os.getenv("DISCORD_RADIOBOT_PREFIX")       # e.g. "!"
 SOURCE = os.getenv("DISCORD_RADIOBOT_SOURCE")       # e.g. "http://nthmost.net:8000/mutiny-studio"
+ENCODING = "ogg"                                    # options: ogg, mp3  (default: ogg)
 
 client = Bot(command_prefix=list(PREFIX))
 
@@ -59,8 +59,10 @@ async def play(ctx):
         print(err)
         pass
     if player:
-        # player.play(FFmpegPCMAudio(SOURCE))
-        player.play(FFmpegOpusAudio(SOURCE))
+        if ENCODING == "mp3":
+            player.play(FFmpegPCMAudio(SOURCE))
+        else:
+            player.play(FFmpegOpusAudio(SOURCE))
     else:
         print("Could not initialize player.")
 
