@@ -35,10 +35,22 @@ async def whoami(ctx) :
     await ctx.send(f"You are {ctx.message.author.name}")
 
 
+@client.command(name="web_listeners")
+async def web_listeners(ctx):
+    listeners = 5
+    await ctx.send(f"Listeners connected directly to {SOURCE}: {listeners}")
+
+
 @client.command(aliases=['p', 'pla'])
 async def play(ctx):
-    channel = ctx.message.author.voice.channel
     global player
+    try:
+        channel = ctx.message.author.voice.channel
+    except AttributeError:
+        # user is not in a Voice Channel
+        await ctx.send(f"You need to join a Voice Channel for me to know where to play the stream!")
+        return
+
     try:
         player = await channel.connect()
     except CommandInvokeError:
