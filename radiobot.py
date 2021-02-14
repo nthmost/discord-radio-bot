@@ -41,8 +41,7 @@ async def web_listeners(ctx):
     await ctx.send(f"Listeners connected directly to {SOURCE}: {listeners}")
 
 
-@client.command(aliases=['p', 'pla'])
-async def play(ctx):
+def do_play(src):
     global player
     try:
         channel = ctx.message.author.voice.channel
@@ -60,14 +59,20 @@ async def play(ctx):
         pass
     if player:
         if ENCODING == "mp3":
-            player.play(FFmpegPCMAudio(SOURCE))
+            player.play(FFmpegPCMAudio(src))
         else:
-            player.play(FFmpegOpusAudio(SOURCE))
+            player.play(FFmpegOpusAudio(src))
     else:
         print("Could not initialize player.")
 
 
-@client.command(aliases=['s', 'sto'])
+
+@client.command(aliases=['p', 'pla'])
+async def play(ctx):
+    do_play(SOURCE)
+
+
+@client.command(aliases=['s', 'stp'])
 async def stop(ctx):
     player.stop()
 
